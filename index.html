@@ -203,9 +203,26 @@
     .chaos-to-order .fragment {
       transition: all 0.6s ease;
     }
+
+    /* Persistent LinkedIn handle */
+    .linkedin-handle {
+      position: fixed;
+      bottom: 16px;
+      left: 20px;
+      font-size: 14px;
+      color: #888;
+      text-decoration: none;
+      z-index: 100;
+      transition: color 0.2s;
+    }
+
+    .linkedin-handle:hover {
+      color: var(--accent);
+    }
   </style>
 </head>
 <body>
+<a class="linkedin-handle" href="https://www.linkedin.com/in/dannyockilson" target="_blank" rel="noopener">@dannyockilson</a>
 <div class="reveal">
 <div class="slides">
 
@@ -224,7 +241,7 @@
   <section>
     <h2>A weekend aside...</h2>
     <p>I saw the Gorillaz this weekend.</p>
-    <p class="fragment">They're on their <span class="highlight">"The Mountain"</span> tour.</p>
+    <img src="assets/gorillaz-tour.jpg" alt="Gorillaz — The Mountain tour poster" style="max-height: 35vh; border-radius: 8px; margin: 0.5em 0; box-shadow: 2px 2px 16px rgba(0,0,0,0.5);">
     <p class="fragment">Maybe that's why mountains are on my mind...</p>
   </section>
 
@@ -233,7 +250,7 @@
       "If the mountain won't come to Muhammad,<br>
       Muhammad must go to the mountain."
     </blockquote>
-    <p class="fragment" style="margin-top: 1em;">But what if you just... <span class="highlight">move the mountain?</span></p>
+    <p class="fragment" style="margin-top: 1em;">But what if AI <em>can</em> <span class="highlight">move the mountain?</span></p>
   </section>
 
   <section>
@@ -266,7 +283,7 @@
 
   <!-- Extended only: deeper on the cost -->
   <section data-visibility="extended">
-    <h3>Acknowledge: this works!</h3>
+    <h3>To be fair...</h3>
     <p>It's not wrong. I've done this at work —<br>changed processes to work better with AI tooling.</p>
     <p class="fragment" style="margin-top: 1em;">But what gets <span class="highlight-warm">lost?</span></p>
   </section>
@@ -318,10 +335,6 @@
       <li>It can <span class="highlight">interpret sketches</span> and messy layouts</li>
       <li>Voice input turns stream-of-consciousness into structure</li>
     </ul>
-    <p class="fragment" style="margin-top: 1em;">
-      The reMarkable isn't a productivity tool.<br>
-      It's a <span class="highlight">thinking tool</span>.
-    </p>
   </section>
 
   <!-- ============================================================ -->
@@ -332,53 +345,83 @@
     <p class="subtitle">The flow</p>
   </section>
 
+  <section>
+    <h3>A quick aside on tools</h3>
+    <p>I use a <span class="highlight">reMarkable</span> — an e-ink tablet for handwriting.</p>
+    <p class="fragment" style="margin-top: 0.8em;">But nothing here is specific to it.<br>
+      <span style="color: #aaa;">A notebook, a whiteboard, a napkin — anything you think with.</span>
+    </p>
+    <p class="fragment" style="margin-top: 0.8em;">Take a photo, export a PDF. The input medium is <span class="highlight">yours</span>.</p>
+  </section>
+
   <!-- Step 1: The mess -->
   <section>
     <h3>Step 1: The mess</h3>
     <div class="paper-frame">
-      <img src="assets/rm-brain-dump.png" alt="reMarkable brain dump notes">
+      <img src="assets/personal-website/raw-notes-1.png" alt="reMarkable brain dump — handwritten wireframes for dannyockilson.com">
     </div>
-    <p class="small">Actual reMarkable notes — messy, nonlinear, mine.</p>
+    <p class="small">Actual reMarkable notes — wireframes, layouts, interaction ideas. Pure brain dump.</p>
     <aside class="notes">
       Show the raw brain dump page from reMarkable.
-      Point out the doodles, arrows, crossed-out bits.
+      Point out the wireframes, the Snellen grid sketch, "The Void" page, search interaction.
       This is what natural thinking looks like.
     </aside>
   </section>
 
   <!-- Step 2: Export -->
   <section>
-    <h3>Step 2: Export as PDF</h3>
-    <div class="screenshot-placeholder">
-      [Screenshot: reMarkable PDF export]
+    <h3>Step 2: Send it</h3>
+    <div class="paper-frame" style="transform: rotate(1deg);">
+      <img src="assets/personal-website/send-to-email-resized.jpg" alt="reMarkable share menu — Send by email" style="max-height: 50vh;">
     </div>
-    <p class="small">One tap. That's the only manual step that matters.</p>
+    <p class="small">Share → Send by email. That's it.</p>
   </section>
 
-  <!-- Step 3: Upload to Claude -->
+  <!-- Step 3: Claude reads the chaos -->
   <section>
-    <h3>Step 3: Upload to Claude</h3>
-    <div class="screenshot-placeholder">
-      [Screenshot: Claude.ai Cowork — PDF upload with minimal prompt]
+    <h3>Step 3: Claude reads it</h3>
+    <div class="paper-frame" style="transform: rotate(-1deg);">
+      <img src="assets/personal-website/claude-initial-understanding-resized.jpg" alt="Claude mobile parsing the raw wireframe notes" style="max-height: 50vh;">
     </div>
-    <p class="small">Drop the PDF. Give minimal context.</p>
+    <p class="fragment small">"Great sketch, Danny..." — it parsed the grid layout,<br>the transitions, the navigation. From one page of scribbles.</p>
   </section>
 
-  <!-- Step 4: Claude reads the chaos -->
+  <!-- Step 4: Claude structures it -->
   <section>
-    <h3>Step 4: Claude reads the chaos</h3>
-    <div class="screenshot-placeholder">
-      [Screenshot: Claude interpreting the handwriting]
+    <h3>Step 4: Claude structures it</h3>
+    <div class="paper-frame straight">
+      <img src="assets/personal-website/prd-original-01.png" alt="First draft PRD generated from the wireframe notes">
     </div>
-    <p class="fragment small">It reads the handwriting. It follows the arrows.<br>It understands the doodles.</p>
+    <p class="fragment small">A full PRD — vision, goals, non-goals, interaction design.<br>First draft, straight from the chaos.</p>
   </section>
 
-  <!-- Step 5: The output -->
+  <!-- Step 5: The feedback loop -->
   <section>
-    <h3>Step 5: The output</h3>
-    <div class="screenshot-placeholder">
-      [Screenshot: Structured PRD that emerged from the mess]
+    <h3>Step 5: The feedback loop</h3>
+    <div class="two-col">
+      <div>
+        <div class="paper-frame" style="transform: rotate(1deg);">
+          <img src="assets/personal-website/annotated-10.png" alt="PRD printed back to reMarkable with handwritten annotations in red" style="max-height: 45vh;">
+        </div>
+        <p class="small">Scribble feedback on the draft</p>
+      </div>
+      <div>
+        <div class="paper-frame" style="transform: rotate(-1deg);">
+          <img src="assets/personal-website/claude-reading-resized.jpg" alt="Claude reading back the handwritten annotations" style="max-height: 45vh;">
+        </div>
+        <p class="small">Claude reads every annotation</p>
+      </div>
     </div>
+    <p class="fragment small" style="margin-top: 0.5em;"><span class="highlight">The loop closes on paper.</span></p>
+  </section>
+
+  <!-- Step 6: The output -->
+  <section>
+    <h3>Step 6: The output</h3>
+    <div class="paper-frame straight">
+      <img src="assets/personal-website/prd-final-01.png" alt="Final PRD v1.1 incorporating all feedback">
+    </div>
+    <p class="small">v1.1 — every annotation addressed. Changelog and all.</p>
   </section>
 
   <section>
@@ -398,7 +441,11 @@
       <span class="flow-arrow">→</span>
       <span class="highlight">AI bridge</span>
       <span class="flow-arrow">→</span>
-      <span class="highlight-green">Structured document</span>
+      <span class="highlight-green">Draft</span>
+      <span class="flow-arrow">→</span>
+      <span class="highlight-warm">Scribble feedback</span>
+      <span class="flow-arrow">→</span>
+      <span class="highlight-green">Final document</span>
     </p>
   </section>
 
@@ -412,63 +459,42 @@
 
   <section data-visibility="extended">
     <h3>The raw notes</h3>
-    <div class="screenshot-placeholder">
-      [Screenshot: reMarkable brain dump for blog/website project]
+    <div class="paper-frame">
+      <img src="assets/personal-website/raw-notes-1.png" alt="Handwritten wireframes for dannyockilson.com">
     </div>
-    <p class="small">Brain dump on rM: layout ideas, features, content structure</p>
+    <p class="small">Brain dump on rM: page layouts, interaction patterns, the Snellen grid idea</p>
   </section>
 
   <section data-visibility="extended">
-    <h3>What Claude saw</h3>
-    <div class="screenshot-placeholder">
-      [Screenshot: Claude's interpretation of the notes]
+    <h3>What Claude produced</h3>
+    <div class="paper-frame straight">
+      <img src="assets/personal-website/annotated-01.png" alt="PRD v1.0 generated from the notes">
     </div>
+    <p class="small">A full PRD — vision, goals, non-goals, interaction design — from one page of scribbles.</p>
   </section>
 
   <section data-visibility="extended">
-    <h3>The PRD that came out</h3>
-    <div class="screenshot-placeholder">
-      [Screenshot: Finished PRD output]
+    <h3>Review on paper, feed back</h3>
+    <div class="paper-frame" style="transform: rotate(1deg);">
+      <img src="assets/personal-website/annotated-05.png" alt="PRD with red handwritten annotations on reMarkable">
     </div>
     <p class="fragment small">
-      Things Claude caught that weren't explicit —<br>
-      <span class="highlight">inferred intent, connected dots</span>
+      Red ink = my feedback, written on the rM.<br>
+      Upload the annotated PDF → Claude folds it in.
     </p>
   </section>
 
-  <!-- ============================================================ -->
-  <!-- EXTENDED ONLY: Example 2 — Design doc from sketches -->
-  <!-- ============================================================ -->
   <section data-visibility="extended">
-    <h2>Example 2</h2>
-    <p class="subtitle">Design doc from architectural sketches</p>
-  </section>
-
-  <section data-visibility="extended">
-    <h3>Architectural doodles</h3>
-    <div class="screenshot-placeholder">
-      [Screenshot: Flow diagrams / architecture sketches on reMarkable]
-    </div>
-    <p class="small">Boxes, arrows, system boundaries — drawn by hand</p>
-  </section>
-
-  <section data-visibility="extended">
-    <h3>Claude's interpretation</h3>
-    <div class="screenshot-placeholder">
-      [Screenshot: Claude reading the architecture sketch]
-    </div>
-  </section>
-
-  <section data-visibility="extended">
-    <h3>Structured design doc</h3>
-    <div class="screenshot-placeholder">
-      [Screenshot: Design document output]
+    <h3>The final PRD</h3>
+    <div class="paper-frame straight">
+      <img src="assets/personal-website/prd-final-01.png" alt="Final PRD v1.1">
     </div>
     <p class="fragment small">
-      Visual/spatial thinking <span class="flow-arrow">→</span> structured text.<br>
-      The <span class="highlight">shape of the idea</span> survived the translation.
+      v1.1 with a changelog. Every red-ink note addressed.<br>
+      <span class="highlight">Inferred intent, connected dots</span> — things I didn't write explicitly.
     </p>
   </section>
+
 
   <!-- ============================================================ -->
   <!-- EXTENDED ONLY: What makes this work -->
@@ -517,7 +543,7 @@
   <section>
     <h3>These notes...</h3>
     <div class="paper-frame" style="transform: rotate(-2deg);">
-      <img src="notes_page-1.png" alt="The actual reMarkable notes for this talk">
+      <img src="assets/notes_page-1.png" alt="The actual reMarkable notes for this talk">
     </div>
     <p class="small">The actual notes page for this talk.</p>
   </section>
@@ -578,15 +604,6 @@
     </p>
     <p class="fragment big-text" style="margin-top: 0.3em;">
       I made AI learn to <span class="highlight">read my thinking</span>.
-    </p>
-  </section>
-
-  <section>
-    <blockquote style="border-left-color: var(--accent-warm);">
-      "If the mountain won't come to Muhammad..."
-    </blockquote>
-    <p class="fragment" style="margin-top: 1.5em;">
-      <span class="big-text"><span class="highlight">Move the mountain.</span></span>
     </p>
   </section>
 
