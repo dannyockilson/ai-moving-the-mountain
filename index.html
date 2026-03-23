@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moving the Mountain — AI Adapting to You</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css" id="theme">
+
+  <style>
+    :root {
+      --r-background-color: #1a1a2e;
+      --r-main-color: #e0e0e0;
+      --r-heading-color: #ffffff;
+      --r-link-color: #4fc3f7;
+      --r-selection-background-color: #4fc3f7;
+      --accent: #4fc3f7;
+      --accent-warm: #ff6b6b;
+      --accent-green: #69f0ae;
+      --paper-bg: #f5f0e8;
+    }
+
+    .reveal {
+      font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    .reveal h1, .reveal h2, .reveal h3 {
+      font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+      font-weight: 700;
+      text-transform: none;
+    }
+
+    .reveal h1 { font-size: 2.4em; }
+    .reveal h2 { font-size: 1.8em; }
+    .reveal h3 { font-size: 1.3em; color: var(--accent); }
+
+    .reveal .subtitle {
+      color: var(--accent);
+      font-size: 1.2em;
+      font-weight: 300;
+      margin-top: 0.5em;
+    }
+
+    .reveal .author {
+      color: #aaa;
+      font-size: 0.9em;
+      margin-top: 2em;
+    }
+
+    /* Paper overlay effect for screenshot slides */
+    .paper-frame {
+      background: var(--paper-bg);
+      border-radius: 4px;
+      padding: 20px;
+      box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.5);
+      display: inline-block;
+      max-width: 70%;
+      transform: rotate(-1deg);
+    }
+
+    .paper-frame img {
+      max-height: 55vh;
+      display: block;
+    }
+
+    .paper-frame.straight {
+      transform: rotate(0deg);
+    }
+
+    /* Quote styling */
+    .reveal blockquote {
+      background: rgba(79, 195, 247, 0.1);
+      border-left: 4px solid var(--accent);
+      padding: 20px 30px;
+      font-style: italic;
+      width: 80%;
+      margin: 0 auto;
+    }
+
+    /* Emphasis text */
+    .big-text {
+      font-size: 2em;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .highlight {
+      color: var(--accent);
+    }
+
+    .highlight-warm {
+      color: var(--accent-warm);
+    }
+
+    .highlight-green {
+      color: var(--accent-green);
+    }
+
+    /* Flow diagram styles */
+    .flow-step {
+      display: inline-block;
+      padding: 15px 25px;
+      margin: 0 10px;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+
+    .flow-arrow {
+      display: inline-block;
+      font-size: 1.5em;
+      vertical-align: middle;
+      color: var(--accent);
+      margin: 0 5px;
+    }
+
+    .chaos-box {
+      background: rgba(255, 107, 107, 0.2);
+      border: 2px solid var(--accent-warm);
+    }
+
+    .order-box {
+      background: rgba(105, 240, 174, 0.2);
+      border: 2px solid var(--accent-green);
+    }
+
+    .ai-box {
+      background: rgba(79, 195, 247, 0.2);
+      border: 2px solid var(--accent);
+    }
+
+    /* Section divider */
+    .section-divider {
+      position: relative;
+    }
+
+    .section-divider h2 {
+      font-size: 2.5em;
+    }
+
+    /* Two-column layout */
+    .two-col {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .two-col > * {
+      flex: 1;
+    }
+
+    /* List styling */
+    .reveal ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .reveal ul li {
+      padding: 0.3em 0;
+      padding-left: 1.5em;
+      position: relative;
+    }
+
+    .reveal ul li::before {
+      content: '→';
+      color: var(--accent);
+      position: absolute;
+      left: 0;
+    }
+
+    /* Screenshot placeholder */
+    .screenshot-placeholder {
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px dashed rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      padding: 60px 40px;
+      color: #888;
+      font-style: italic;
+      max-width: 70%;
+      margin: 20px auto;
+    }
+
+    /* Fade for extended-only content marker */
+    .extended-only-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(79, 195, 247, 0.2);
+      color: var(--accent);
+      font-size: 0.5em;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-weight: 400;
+    }
+
+    /* Smaller text utility */
+    .small { font-size: 0.7em; color: #aaa; }
+    .medium { font-size: 0.85em; }
+
+    /* Transition override for chaos->order */
+    .chaos-to-order .fragment {
+      transition: all 0.6s ease;
+    }
+  </style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+  <!-- ============================================================ -->
+  <!-- TITLE -->
+  <!-- ============================================================ -->
+  <section>
+    <h1>Moving the<br>Mountain</h1>
+    <p class="subtitle">AI Adapting to You</p>
+    <p class="author">Danny Ockilson</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 1. THE HOOK -->
+  <!-- ============================================================ -->
+  <section>
+    <h2>A weekend aside...</h2>
+    <p>I saw the Gorillaz this weekend.</p>
+    <p class="fragment">They're on their <span class="highlight">"The Mountain"</span> tour.</p>
+    <p class="fragment">Maybe that's why mountains are on my mind...</p>
+  </section>
+
+  <section>
+    <blockquote>
+      "If the mountain won't come to Muhammad,<br>
+      Muhammad must go to the mountain."
+    </blockquote>
+    <p class="fragment" style="margin-top: 1em;">But what if you just... <span class="highlight">move the mountain?</span></p>
+  </section>
+
+  <section>
+    <p class="big-text">
+      Everyone says:<br>
+      <span class="highlight-warm">change how you work</span><br>
+      to get the most out of AI.
+    </p>
+    <p class="fragment big-text" style="margin-top: 0.5em;">
+      What if that's <span class="highlight">backwards?</span>
+    </p>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 2. THE PROBLEM -->
+  <!-- ============================================================ -->
+  <section class="section-divider">
+    <h2>The <span class="highlight-warm">"Adapt Yourself"</span> Era</h2>
+  </section>
+
+  <section>
+    <h3>The prevailing wisdom</h3>
+    <ul>
+      <li>Prompt engineering courses</li>
+      <li>Structured input templates</li>
+      <li>"Talk to AI like this..."</li>
+      <li>Change your workflows to fit the tool</li>
+    </ul>
+  </section>
+
+  <!-- Extended only: deeper on the cost -->
+  <section data-visibility="extended">
+    <h3>Acknowledge: this works!</h3>
+    <p>It's not wrong. I've done this at work —<br>changed processes to work better with AI tooling.</p>
+    <p class="fragment" style="margin-top: 1em;">But what gets <span class="highlight-warm">lost?</span></p>
+  </section>
+
+  <section>
+    <h3>The cost</h3>
+    <p>You lose the <span class="highlight-warm">messy, creative, nonlinear thinking</span><br>
+    that makes humans good at ideation.</p>
+    <p class="fragment" style="margin-top: 1em; color: #aaa;">
+      The irony: AI is great at handling unstructured input,<br>
+      yet we're told to give it structured input.
+    </p>
+  </section>
+
+  <section>
+    <p class="big-text">
+      I think best with a <span class="highlight">pen</span>.
+    </p>
+    <p class="fragment medium" style="margin-top: 0.5em;">
+      Doodles, arrows, scribbles, brain dumps.
+    </p>
+    <p class="fragment medium">
+      Or talking it out loud on a walk.
+    </p>
+    <p class="fragment medium" style="color: #aaa;">
+      That's not going away.
+    </p>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 3. THE THESIS (extended gets more room) -->
+  <!-- ============================================================ -->
+  <section class="section-divider">
+    <h2>The <span class="highlight">Inversion</span></h2>
+  </section>
+
+  <section>
+    <p class="big-text">
+      <span class="highlight-warm">Don't</span> adapt yourself to AI.<br>
+      <span class="highlight">Adapt AI</span> to your existing flow.
+    </p>
+  </section>
+
+  <!-- Extended only: why now -->
+  <section data-visibility="extended">
+    <h3>Why now?</h3>
+    <ul>
+      <li>Multimodal AI can <span class="highlight">read handwriting</span></li>
+      <li>It can <span class="highlight">interpret sketches</span> and messy layouts</li>
+      <li>Voice input turns stream-of-consciousness into structure</li>
+    </ul>
+    <p class="fragment" style="margin-top: 1em;">
+      The reMarkable isn't a productivity tool.<br>
+      It's a <span class="highlight">thinking tool</span>.
+    </p>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 4. THE FLOW — SHOW & TELL -->
+  <!-- ============================================================ -->
+  <section class="section-divider">
+    <h2><span class="highlight-warm">Chaos</span> In, <span class="highlight-green">Order</span> Out</h2>
+    <p class="subtitle">The flow</p>
+  </section>
+
+  <!-- Step 1: The mess -->
+  <section>
+    <h3>Step 1: The mess</h3>
+    <div class="paper-frame">
+      <img src="assets/rm-brain-dump.png" alt="reMarkable brain dump notes">
+    </div>
+    <p class="small">Actual reMarkable notes — messy, nonlinear, mine.</p>
+    <aside class="notes">
+      Show the raw brain dump page from reMarkable.
+      Point out the doodles, arrows, crossed-out bits.
+      This is what natural thinking looks like.
+    </aside>
+  </section>
+
+  <!-- Step 2: Export -->
+  <section>
+    <h3>Step 2: Export as PDF</h3>
+    <div class="screenshot-placeholder">
+      [Screenshot: reMarkable PDF export]
+    </div>
+    <p class="small">One tap. That's the only manual step that matters.</p>
+  </section>
+
+  <!-- Step 3: Upload to Claude -->
+  <section>
+    <h3>Step 3: Upload to Claude</h3>
+    <div class="screenshot-placeholder">
+      [Screenshot: Claude.ai Cowork — PDF upload with minimal prompt]
+    </div>
+    <p class="small">Drop the PDF. Give minimal context.</p>
+  </section>
+
+  <!-- Step 4: Claude reads the chaos -->
+  <section>
+    <h3>Step 4: Claude reads the chaos</h3>
+    <div class="screenshot-placeholder">
+      [Screenshot: Claude interpreting the handwriting]
+    </div>
+    <p class="fragment small">It reads the handwriting. It follows the arrows.<br>It understands the doodles.</p>
+  </section>
+
+  <!-- Step 5: The output -->
+  <section>
+    <h3>Step 5: The output</h3>
+    <div class="screenshot-placeholder">
+      [Screenshot: Structured PRD that emerged from the mess]
+    </div>
+  </section>
+
+  <section>
+    <div class="two-col">
+      <div>
+        <div class="flow-step chaos-box">Chaos</div>
+      </div>
+      <div>
+        <span class="flow-arrow">→</span>
+      </div>
+      <div>
+        <div class="flow-step order-box">Order</div>
+      </div>
+    </div>
+    <p style="margin-top: 1.5em;">
+      <span class="highlight-warm">Messy brain dump</span>
+      <span class="flow-arrow">→</span>
+      <span class="highlight">AI bridge</span>
+      <span class="flow-arrow">→</span>
+      <span class="highlight-green">Structured document</span>
+    </p>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- EXTENDED ONLY: Example 1 — Personal project PRD -->
+  <!-- ============================================================ -->
+  <section data-visibility="extended">
+    <h2>Example 1</h2>
+    <p class="subtitle">Personal blog/website — designed this weekend</p>
+  </section>
+
+  <section data-visibility="extended">
+    <h3>The raw notes</h3>
+    <div class="screenshot-placeholder">
+      [Screenshot: reMarkable brain dump for blog/website project]
+    </div>
+    <p class="small">Brain dump on rM: layout ideas, features, content structure</p>
+  </section>
+
+  <section data-visibility="extended">
+    <h3>What Claude saw</h3>
+    <div class="screenshot-placeholder">
+      [Screenshot: Claude's interpretation of the notes]
+    </div>
+  </section>
+
+  <section data-visibility="extended">
+    <h3>The PRD that came out</h3>
+    <div class="screenshot-placeholder">
+      [Screenshot: Finished PRD output]
+    </div>
+    <p class="fragment small">
+      Things Claude caught that weren't explicit —<br>
+      <span class="highlight">inferred intent, connected dots</span>
+    </p>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- EXTENDED ONLY: Example 2 — Design doc from sketches -->
+  <!-- ============================================================ -->
+  <section data-visibility="extended">
+    <h2>Example 2</h2>
+    <p class="subtitle">Design doc from architectural sketches</p>
+  </section>
+
+  <section data-visibility="extended">
+    <h3>Architectural doodles</h3>
+    <div class="screenshot-placeholder">
+      [Screenshot: Flow diagrams / architecture sketches on reMarkable]
+    </div>
+    <p class="small">Boxes, arrows, system boundaries — drawn by hand</p>
+  </section>
+
+  <section data-visibility="extended">
+    <h3>Claude's interpretation</h3>
+    <div class="screenshot-placeholder">
+      [Screenshot: Claude reading the architecture sketch]
+    </div>
+  </section>
+
+  <section data-visibility="extended">
+    <h3>Structured design doc</h3>
+    <div class="screenshot-placeholder">
+      [Screenshot: Design document output]
+    </div>
+    <p class="fragment small">
+      Visual/spatial thinking <span class="flow-arrow">→</span> structured text.<br>
+      The <span class="highlight">shape of the idea</span> survived the translation.
+    </p>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- EXTENDED ONLY: What makes this work -->
+  <!-- ============================================================ -->
+  <section data-visibility="extended" class="section-divider">
+    <h2>What Makes This <span class="highlight">Work</span></h2>
+  </section>
+
+  <section data-visibility="extended">
+    <h3>The ingredients</h3>
+    <ul>
+      <li>Multimodal AI reads messy handwriting <span class="small">(surprisingly well)</span></li>
+      <li>Voice input via Claude mobile — verbal brain dumps on a walk</li>
+      <li>Cowork mode — iterative refinement, not one-shot</li>
+    </ul>
+  </section>
+
+  <section data-visibility="extended">
+    <h3>The key insight</h3>
+    <p class="big-text" style="font-size: 1.5em;">
+      Brain dumps contain <span class="highlight">more signal</span><br>
+      than carefully typed prompts.
+    </p>
+    <p class="fragment medium" style="margin-top: 1em;">
+      Because you <span class="highlight-warm">don't self-censor</span>.
+    </p>
+  </section>
+
+  <section data-visibility="extended">
+    <h3>When it doesn't work</h3>
+    <ul>
+      <li>Illegibility has limits — truly chaotic scrawl can confuse it</li>
+      <li>Network dependency — rM cloud sync can be slow</li>
+      <li>Manual export friction — still requires PDF → upload → prompt</li>
+    </ul>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- THE META EXAMPLE (both versions) -->
+  <!-- ============================================================ -->
+  <section class="section-divider">
+    <h2>The Meta Example</h2>
+    <p class="subtitle">This talk</p>
+  </section>
+
+  <section>
+    <h3>These notes...</h3>
+    <div class="paper-frame" style="transform: rotate(-2deg);">
+      <img src="notes_page-1.png" alt="The actual reMarkable notes for this talk">
+    </div>
+    <p class="small">The actual notes page for this talk.</p>
+  </section>
+
+  <section>
+    <h3>...became this talk.</h3>
+    <p style="margin-top: 1em;">I uploaded that page to Claude.</p>
+    <p class="fragment">We built this entire talk from it.</p>
+    <p class="fragment" style="margin-top: 1em; color: #aaa;">
+      You're watching the output of the process.
+    </p>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- WHAT'S NEXT -->
+  <!-- ============================================================ -->
+  <section class="section-divider">
+    <h2>What's <span class="highlight">Next</span></h2>
+  </section>
+
+  <section>
+    <h3>The manual flow today</h3>
+    <p>
+      <span class="flow-step" style="background: rgba(255,255,255,0.05); border: 1px solid #555;">rM</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step" style="background: rgba(255,255,255,0.05); border: 1px solid #555;">PDF</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step" style="background: rgba(255,255,255,0.05); border: 1px solid #555;">Claude</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-step" style="background: rgba(255,255,255,0.05); border: 1px solid #555;">Prompt</span>
+    </p>
+    <p class="fragment" style="margin-top: 1.5em;">
+      I'm building automation to <span class="highlight">close the loop</span>.
+    </p>
+  </section>
+
+  <!-- Extended only: more on the vision -->
+  <section data-visibility="extended">
+    <h3>The vision</h3>
+    <ul>
+      <li>reMarkable as a <span class="highlight">persistent input surface</span></li>
+      <li>Voice as the <span class="highlight">mobile input surface</span></li>
+      <li>AI as a <span class="highlight">persistent interpreter</span></li>
+    </ul>
+    <p class="fragment" style="margin-top: 1em;">
+      This pattern applies beyond reMarkable —<br>
+      <span style="color: #aaa;">voice, whiteboard, notebook, napkin sketch</span><br>
+      any preferred thinking medium + AI bridge.
+    </p>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- CLOSE -->
+  <!-- ============================================================ -->
+  <section>
+    <p class="big-text">
+      I didn't learn to think like AI.
+    </p>
+    <p class="fragment big-text" style="margin-top: 0.3em;">
+      I made AI learn to <span class="highlight">read my thinking</span>.
+    </p>
+  </section>
+
+  <section>
+    <blockquote style="border-left-color: var(--accent-warm);">
+      "If the mountain won't come to Muhammad..."
+    </blockquote>
+    <p class="fragment" style="margin-top: 1.5em;">
+      <span class="big-text"><span class="highlight">Move the mountain.</span></span>
+    </p>
+  </section>
+
+  <section>
+    <h2>Your best thinking doesn't<br>happen in a text box.</h2>
+    <p class="fragment subtitle">Move the mountain.</p>
+    <p class="author">Danny Ockilson</p>
+  </section>
+
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script>
+  // Check URL params for talk version
+  const params = new URLSearchParams(window.location.search);
+  const version = params.get('version') || 'lightning';
+
+  Reveal.initialize({
+    hash: true,
+    slideNumber: true,
+    transition: 'fade',
+    transitionSpeed: 'default',
+    center: true,
+    width: 1920,
+    height: 1080,
+    margin: 0.1,
+
+    // For lightning talk, hide extended-only slides
+    // For extended, show everything
+    ...(version === 'extended' ? {} : {
+      // We'll handle visibility via a plugin approach below
+    })
+  });
+
+  // After init, hide or show extended slides based on version
+  if (version !== 'extended') {
+    document.querySelectorAll('[data-visibility="extended"]').forEach(slide => {
+      slide.style.display = 'none';
+      // Remove from reveal's slide list
+      slide.parentNode.removeChild(slide);
+    });
+    // Re-sync reveal
+    Reveal.sync();
+  } else {
+    // In extended mode, remove the data-visibility attribute so reveal.js doesn't hide them
+    document.querySelectorAll('[data-visibility="extended"]').forEach(slide => {
+      slide.removeAttribute('data-visibility');
+    });
+    Reveal.sync();
+  }
+</script>
+</body>
+</html>

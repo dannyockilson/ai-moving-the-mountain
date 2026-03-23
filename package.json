@@ -1,0 +1,12 @@
+{
+  "name": "moving-the-mountain",
+  "version": "1.0.0",
+  "description": "Talk: Moving the Mountain — AI Adapting to You",
+  "scripts": {
+    "start": "npx serve .",
+    "export": "npx decktape reveal http://localhost:3000 slides.pdf",
+    "export-pptx": "npx decktape reveal http://localhost:3000 --slides 1-50 slides.pptx"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
